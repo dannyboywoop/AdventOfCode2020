@@ -16,8 +16,9 @@ def find_set_with_sum(data, set_size, total=2020):
             return [total]
 
     else:
-        for i, val in enumerate(data[:1-set_size]):
-            sub_set = find_set_with_sum(data[i+1:], set_size-1, total-val)
+        sub_set_size = set_size - 1
+        for i, val in enumerate(data[:-sub_set_size]):
+            sub_set = find_set_with_sum(data[i+1:], sub_set_size, total-val)
             if sub_set is not None:
                 return sub_set+[val]
 
