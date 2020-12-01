@@ -5,17 +5,15 @@ def read_data(input_file="input.txt"):
 
 
 def find_set_with_sum(data, set_size, total=2020):
-    if set_size <= 1:
-        raise Exception("Error: set_size must be atleast 2")
+    if set_size < 1:
+        raise Exception("Error: set_size must be atleast 1")
 
     if set_size > len(data):
         raise Exception("Error: set_size must be <= the size of the data")
 
-    if set_size == 2:
-        for i in range(len(data)):
-            for j in range(i+1, len(data)):
-                if data[i]+data[j] == total:
-                    return [data[i], data[j]]
+    if set_size == 1:
+        if total in data:
+            return [total]
 
     else:
         for i, val in enumerate(data[:1-set_size]):
