@@ -4,7 +4,7 @@ def read_data(input_file="input.txt"):
     return data
 
 
-def find_set_with_sum(data, set_size, total=2020):
+def find_set_with_sum(data, set_size, total=2020, all_positive=True):
     if set_size < 1:
         raise Exception("Error: set_size must be atleast 1")
 
@@ -18,6 +18,8 @@ def find_set_with_sum(data, set_size, total=2020):
     else:
         sub_set_size = set_size - 1
         for i, val in enumerate(data[:-sub_set_size]):
+            if i >= total and all_positive:
+                continue
             sub_set = find_set_with_sum(data[i+1:], sub_set_size, total-val)
             if sub_set is not None:
                 return sub_set+[val]
