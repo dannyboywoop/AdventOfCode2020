@@ -1,42 +1,37 @@
 class Password:
-    def __init__(self, input_list):
-        self.rule_vals = Password._parse_rule(input_list[0])
-        self.required_letter = input_list[1][0]
-        self.password = input_list[2]
+    def __init__(self, input_string):
+        rule_string, letter_string, self.password = input_string.split(" ")
+        self.rule_val_1, self.rule_val_2 = Password._parse_rule(rule_string)
+        self.required_letter = letter_string.strip(":")
 
-    def _parse_rule(range_string):
-        return [int(val) for val in range_string.split("-")]
+    def _parse_rule(rule_string):
+        return [int(val) for val in rule_string.split("-")]
 
     def is_valid_rule_1(self):
-        count = 0
-        for letter in self.password:
-            if letter == self.required_letter:
-                count += 1
-        return self.rule_vals[0] <= count <= self.rule_vals[1]
+        count = self.password.count(self.required_letter)
+        return self.rule_val_1 <= count <= self.rule_val_2
 
     def is_valid_rule_2(self):
         letter_in_pos_count = 0
-        if self.password[self.rule_vals[0]-1] == self.required_letter:
+        if self.password[self.rule_val_1-1] == self.required_letter:
             letter_in_pos_count += 1
-        if self.password[self.rule_vals[1]-1] == self.required_letter:
+        if self.password[self.rule_val_2-1] == self.required_letter:
             letter_in_pos_count += 1
         return letter_in_pos_count == 1
 
 
 def read_passwords_from_file(filename="input.txt"):
     with open(filename, "r") as input_file:
-        passwords = [Password(line.strip().split(" ")) for line in input_file]
+        passwords = [Password(line.strip()) for line in input_file]
     return passwords
 
 
 def count_valid_passwords_rule_1(passwords):
-    valid_passwords = [pwd for pwd in passwords if pwd.is_valid_rule_1()]
-    return len(valid_passwords)
+    return [pwd.is_valid_rule_1() for pwd in passwords].count(True)
 
 
 def count_valid_passwords_rule_2(passwords):
-    valid_passwords = [pwd for pwd in passwords if pwd.is_valid_rule_2()]
-    return len(valid_passwords)
+    return [pwd.is_valid_rule_2() for pwd in passwords].count(True)
 
 
 if __name__ == "__main__":
