@@ -19,7 +19,7 @@ class Forest_Map:
 
 def read_map_from_file(filename="input.txt"):
     with open(filename, 'r') as map_file:
-        map_array = [[char for char in line.strip()] for line in map_file]
+        map_array = [line.strip() for line in map_file]
     return Forest_Map(map_array)
 
 
