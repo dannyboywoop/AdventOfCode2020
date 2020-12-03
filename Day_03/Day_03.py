@@ -38,13 +38,8 @@ if __name__ == "__main__":
     star_1_answer = count_trees_in_trajectory(forest_map, 3, 1)
     print("Star 1: {}".format(star_1_answer))
 
-    star_2_trees = [count_trees_in_trajectory(forest_map, x_vel, y_vel)
-                    for x_vel, y_vel in [(1, 1),
-                                         (3, 1),
-                                         (5, 1),
-                                         (7, 1),
-                                         (1, 2)]]
+    star_2_inputs = [(1, 1), (3, 1), (5, 1), (7, 1), (1, 2)]
     star_2_answer = 1
-    for trees in star_2_trees:
-        star_2_answer *= trees
+    for x_vel, y_vel in star_2_inputs:
+        star_2_answer *= count_trees_in_trajectory(forest_map, x_vel, y_vel)
     print("Star 2: {}".format(star_2_answer))
