@@ -1,4 +1,13 @@
-REQUIRED_FIELDS = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]
+from re import match
+
+
+REQUIRED_FIELDS = {"byr": r"^(19[2-9]\d|200[0-2])$",
+                   "iyr": r"^20(1\d|20)$",
+                   "eyr": r"^20(2\d|30)$",
+                   "hgt": r"^((1[5-8]\d|19[0-3])cm|(59|6\d|7[0-6])in)$",
+                   "hcl": r"^#[a-f\d]{6}$",
+                   "ecl": r"^(amb|blu|brn|gry|grn|hzl|oth)$",
+                   "pid": r"^\d{9}$"}
 
 
 def list_to_dict(some_list):
@@ -16,7 +25,7 @@ def read_passports(filename="input.txt"):
 
 
 def passport_has_all_fields(passport):
-    for field in REQUIRED_FIELDS:
+    for field in REQUIRED_FIELDS.keys():
         if field not in passport.keys():
             return False
     return True
@@ -29,7 +38,26 @@ def count_passports_with_all_fields(passports):
     return count
 
 
+def passport_is_valid(passport):
+    if not passport_has_all_fields(passport):
+        return False
+    for field, regex in REQUIRED_FIELDS.items():
+        if not bool(match(regex, passport[field])):
+            return False
+    return True
+
+
+def count_valid_passports(passports):
+    count = 0
+    for passport in passports:
+        count += passport_is_valid(passport)
+    return count
+
+
 if __name__ == "__main__":
     passports = read_passports()
     passports_with_all_fields = count_passports_with_all_fields(passports)
     print("Star 1: {}".format(passports_with_all_fields))
+
+    valid_passports = count_valid_passports(passports)
+    print("Star 2: {}".format(valid_passports))
