@@ -24,7 +24,19 @@ def find_highest_seat_id(passes):
     return max(seat_ids)
 
 
+def find_my_seat_id(passes):
+    seat_ids = [boarding_pass.seat_id for boarding_pass in passes]
+    seat_ids.sort()
+
+    for i in range(len(seat_ids)-1):
+        if seat_ids[i] + 1 != seat_ids[i+1]:
+            return seat_ids[i] + 1
+
+
 if __name__ == "__main__":
     passes = read_passes_from_file()
     highest_seat_id = find_highest_seat_id(passes)
     print("Star 1: {}".format(highest_seat_id))
+
+    my_seat_id = find_my_seat_id(passes)
+    print("Star 2: {}".format(my_seat_id))
