@@ -11,5 +11,7 @@ if __name__ == "__main__":
     star_2_answer = 0
     for group in answers:
         star_1_answer += len(set.union(*group))
+        star_2_answer += len(set.intersection(*group))
 
     print("Star 1: {}".format(star_1_answer))
+    print("Star 2: {}".format(star_2_answer))
