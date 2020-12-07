@@ -5,12 +5,19 @@ class Boarding_Pass:
         self.seat_id = self.row * 8 + self.col
 
     def _parse_row(pass_string):
-        binary = pass_string[0:7].replace("F", "0").replace("B", "1")
-        return int(binary, 2)
+        return Boarding_Pass._string_to_binary(pass_string[0:7], "F", "B")
 
     def _parse_col(pass_string):
-        binary = pass_string[7:10].replace("L", "0").replace("R", "1")
-        return int(binary, 2)
+        return Boarding_Pass._string_to_binary(pass_string[7:10], "L", "R")
+
+    def _string_to_binary(string, zero_char, one_char):
+        binary_string = ""
+        for char in string:
+            if char == zero_char:
+                binary_string += "0"
+            elif char == one_char:
+                binary_string += "1"
+        return int(binary_string, 2)
 
 
 def read_passes_from_file(filename="input.txt"):
