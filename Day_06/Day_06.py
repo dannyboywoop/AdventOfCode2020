@@ -1,6 +1,6 @@
 def read_declarations(filename="input.txt"):
     with open(filename, "r") as input_file:
-        groups = input_file.read().strip().split("\n\n")
+        groups = input_file.read().split("\n\n")
     return [[set(person) for person in group.split()] for group in groups]
 
 
