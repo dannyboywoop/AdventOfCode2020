@@ -2,6 +2,7 @@ from re import match, finditer
 
 
 can_contain_colour_cache = {}
+total_bag_count_cache = {}
 
 
 class Requirement:
@@ -56,8 +57,26 @@ def find_colours_that_contain(rules, colour):
     return colours
 
 
+def find_total_bag_count(rules, colour):
+    # check cache for colour
+    if colour in total_bag_count_cache:
+        return total_bag_count_cache[colour]
+
+    total = 0
+    for rule in rules[colour]:
+        total += rule.number
+        total += rule.number * find_total_bag_count(rules, rule.colour)
+
+    # cache total
+    total_bag_count_cache[colour] = total
+    return total
+
+
 if __name__ == "__main__":
     rules = read_rules_from_file()
 
     star_1_answer = len(find_colours_that_contain(rules, "shiny gold"))
     print("Star 1: {}".format(star_1_answer))
+
+    star_2_answer = find_total_bag_count(rules, "shiny gold")
+    print("Star 2: {}".format(star_2_answer))
