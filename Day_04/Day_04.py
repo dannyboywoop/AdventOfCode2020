@@ -18,7 +18,7 @@ def list_to_dict(some_list):
 
 def read_passports(filename="input.txt"):
     with open(filename, "r") as passport_file:
-        all_text = passport_file.read().strip()
+        all_text = passport_file.read()
     passport_array = [string.split() for string in all_text.split("\n\n")]
     passports = [list_to_dict(passport) for passport in passport_array]
     return passports
