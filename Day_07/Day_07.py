@@ -30,22 +30,24 @@ def read_rules_from_file(filename="input.txt"):
 def can_contain_colour(rules, colour_a, colour_b):
     # initialise cache for bags that contain colour_b
     if colour_b not in can_contain_colour_cache:
-        can_contain_colour_cache[colour_b] = set()
+        can_contain_colour_cache[colour_b] = {}
 
     # check cache for colour_a
     if colour_a in can_contain_colour_cache[colour_b]:
-        return True
+        return can_contain_colour_cache[colour_b][colour_a]
 
     for rule in rules[colour_a]:
         if rule.colour == colour_b:
             # cache colour
-            can_contain_colour_cache[colour_b].add(colour_a)
+            can_contain_colour_cache[colour_b][colour_a] = True
             return True
 
         if can_contain_colour(rules, rule.colour, colour_b):
             # cache colour
-            can_contain_colour_cache[colour_b].add(colour_a)
+            can_contain_colour_cache[colour_b][colour_a] = True
             return True
+
+    can_contain_colour_cache[colour_b][colour_a] = False
     return False
 
 
