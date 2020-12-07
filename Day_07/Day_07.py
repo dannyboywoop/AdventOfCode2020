@@ -27,28 +27,28 @@ def read_rules_from_file(filename="input.txt"):
     return parse_rules(string_rules)
 
 
-def can_contain_colour(rules, colour_a, colour_b):
-    # initialise cache for bags that contain colour_b
-    if colour_b not in can_contain_colour_cache:
-        can_contain_colour_cache[colour_b] = {}
+def can_contain_colour(rules, container, colour):
+    # initialise cache for bags that can contain 'colour'
+    if colour not in can_contain_colour_cache:
+        can_contain_colour_cache[colour] = {}
 
-    # check cache for colour_a
-    if colour_a in can_contain_colour_cache[colour_b]:
-        return can_contain_colour_cache[colour_b][colour_a]
+    # check cache for container
+    if container in can_contain_colour_cache[colour]:
+        return can_contain_colour_cache[colour][container]
 
-    for rule in rules[colour_a]:
-        if rule.colour == colour_b:
-            # cache colour
-            can_contain_colour_cache[colour_b][colour_a] = True
-            return True
+    # calculate if not cached
+    result = False
+    for rule in rules[container]:
+        if rule.colour == colour:
+            result = True
+            break
+        elif can_contain_colour(rules, container=rule.colour, colour=colour):
+            result = True
+            break
 
-        if can_contain_colour(rules, rule.colour, colour_b):
-            # cache colour
-            can_contain_colour_cache[colour_b][colour_a] = True
-            return True
-
-    can_contain_colour_cache[colour_b][colour_a] = False
-    return False
+    # cache result
+    can_contain_colour_cache[colour][container] = result
+    return result
 
 
 def find_colours_that_contain(rules, colour):
