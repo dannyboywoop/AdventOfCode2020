@@ -25,12 +25,17 @@ def run_program(program):
             break
         visited_indices.add(index)
     terminated_safely = (index == len(program))
-    return terminated_safely, index, accumulator
+    return terminated_safely, index, accumulator, visited_indices
 
 
-def fix_infinite_loop(program):
+def fix_infinite_loop(program, visited):
     indices_to_check = {}
     for index, instruction in enumerate(program):
+        # only check instructions that are actually hit
+        if index not in visited:
+            continue
+
+        # store potential fix
         op, arg = instruction
         if op == "nop":
             indices_to_check[index] = ("jmp", arg)
@@ -40,15 +45,15 @@ def fix_infinite_loop(program):
     for index, new_instruction in indices_to_check.items():
         fix_program = program.copy()
         fix_program[index] = new_instruction
-        terminated_safely, _, accumulator = run_program(fix_program)
+        terminated_safely, _, accumulator, _ = run_program(fix_program)
         if terminated_safely:
             return accumulator
 
 
 if __name__ == "__main__":
     program = read_program()
-    _, _, star_1_answer = run_program(program)
+    _, _, star_1_answer, visited = run_program(program)
     print("Star 1: {}".format(star_1_answer))
 
-    star_2_answer = fix_infinite_loop(program)
+    star_2_answer = fix_infinite_loop(program, visited)
     print("Star 2: {}".format(star_2_answer))
