@@ -28,7 +28,27 @@ def run_program(program):
     return terminated_safely, index, accumulator
 
 
+def fix_infinite_loop(program):
+    indices_to_check = {}
+    for index, instruction in enumerate(program):
+        op, arg = instruction
+        if op == "nop":
+            indices_to_check[index] = ("jmp", arg)
+        elif op == "jmp":
+            indices_to_check[index] = ("nop", arg)
+
+    for index, new_instruction in indices_to_check.items():
+        fix_program = program.copy()
+        fix_program[index] = new_instruction
+        terminated_safely, _, accumulator = run_program(fix_program)
+        if terminated_safely:
+            return accumulator
+
+
 if __name__ == "__main__":
     program = read_program()
     _, _, star_1_answer = run_program(program)
     print("Star 1: {}".format(star_1_answer))
+
+    star_2_answer = fix_infinite_loop(program)
+    print("Star 2: {}".format(star_2_answer))
