@@ -22,7 +22,21 @@ def find_first_invalid_number(data):
         previous_25.add(val)
 
 
+def find_min_plus_max_of_contigous_set(data, val):
+    for i in range(len(data)):
+        total = 0
+        for j in range(i, len(data)):
+            total += data[j]
+            if total == val:
+                return min(data[i:j+1]) + max(data[i:j+1])
+            if total > val:
+                break
+
+
 if __name__ == "__main__":
     data = read_data()
     star_1_answer = find_first_invalid_number(data)
     print("Star 1: {}".format(star_1_answer))
+
+    star_2_answer = find_min_plus_max_of_contigous_set(data, star_1_answer)
+    print("Star 2: {}".format(star_2_answer))
