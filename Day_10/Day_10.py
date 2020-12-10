@@ -14,6 +14,28 @@ def find_jolt_distribution(adapters):
     return jump_1_count * jump_3_count
 
 
+def tribonacci_n(n, sequence={1: 0, 2: 0, 3: 1}):
+    if n in sequence:
+        return sequence[n]
+
+    trib_n = tribonacci_n(n-1) + tribonacci_n(n-2) + tribonacci_n(n-3)
+    sequence[n] = trib_n
+    return trib_n
+
+
+def count_arrangements(adapters):
+    count = 1
+    consequtive_1_jumps = 0
+    for i in range(1, len(adapters)):
+        diff = adapters[i] - adapters[i-1]
+        if diff == 1:
+            consequtive_1_jumps += 1
+        else:
+            count *= tribonacci_n(consequtive_1_jumps + 3)
+            consequtive_1_jumps = 0
+    return count
+
+
 if __name__ == "__main__":
     adapters = read_adapters()
     adapters.sort()
@@ -22,3 +44,6 @@ if __name__ == "__main__":
 
     star_1_answer = find_jolt_distribution(adapters)
     print("Star 1: {}".format(star_1_answer))
+
+    star_2_answer = count_arrangements(adapters)
+    print("Star 2: {}".format(star_2_answer))
