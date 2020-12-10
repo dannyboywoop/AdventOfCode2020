@@ -1,3 +1,7 @@
+trib_001_cache = {1: 0, 2: 0, 3: 1}
+trib_012_cache = {1: 0, 2: 1, 3: 2}
+
+
 def read_adapters(filename="input.txt"):
     with open(filename, "r") as input_file:
         data = [int(x) for x in input_file]
@@ -14,12 +18,14 @@ def find_jolt_distribution(adapters):
     return jump_1_count * jump_3_count
 
 
-def tribonacci_n(n, sequence={1: 0, 2: 0, 3: 1}):
-    if n in sequence:
-        return sequence[n]
+def tribonacci_n(n, cache):
+    if n in cache:
+        return cache[n]
 
-    trib_n = tribonacci_n(n-1) + tribonacci_n(n-2) + tribonacci_n(n-3)
-    sequence[n] = trib_n
+    trib_n = tribonacci_n(n-1, cache)
+    trib_n += tribonacci_n(n-2, cache)
+    trib_n += tribonacci_n(n-3, cache)
+    cache[n] = trib_n
     return trib_n
 
 
@@ -30,8 +36,11 @@ def count_arrangements(adapters):
         diff = adapters[i] - adapters[i-1]
         if diff == 1:
             consequtive_1_jumps += 1
-        else:
-            count *= tribonacci_n(consequtive_1_jumps + 3)
+        elif diff == 2:
+            count *= tribonacci_n(consequtive_1_jumps + 2, trib_012_cache)
+            consequtive_1_jumps = 0
+        elif diff == 3:
+            count *= tribonacci_n(consequtive_1_jumps + 3, trib_001_cache)
             consequtive_1_jumps = 0
     return count
 
@@ -47,3 +56,5 @@ if __name__ == "__main__":
 
     star_2_answer = count_arrangements(adapters)
     print("Star 2: {}".format(star_2_answer))
+    for i in range(1, 20):
+        print(tribonacci_n(i, trib_012_cache))
