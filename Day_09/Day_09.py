@@ -5,9 +5,9 @@ def read_data(filename="input.txt"):
 
 
 def pair_of_numbers_sum_to_val(numbers, val):
-        for number in numbers:
-            if val - number in numbers:
-                return True
+    for number in numbers:
+        if val - number in numbers:
+            return True
 
 
 def find_first_invalid_number(data):
