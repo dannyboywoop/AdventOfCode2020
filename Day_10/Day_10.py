@@ -56,5 +56,3 @@ if __name__ == "__main__":
 
     star_2_answer = count_arrangements(adapters)
     print("Star 2: {}".format(star_2_answer))
-    for i in range(1, 20):
-        print(tribonacci_n(i, trib_012_cache))
