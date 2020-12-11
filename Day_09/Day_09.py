@@ -1,3 +1,6 @@
+from aoc_tools.advent_timer import Advent_Timer
+
+
 def read_data(filename="input.txt"):
     with open(filename, "r") as input_file:
         data = [int(x) for x in input_file]
@@ -34,9 +37,17 @@ def find_min_plus_max_of_contigous_set(data, val):
 
 
 if __name__ == "__main__":
+    timer = Advent_Timer()
     data = read_data()
+    print("Input parsed!")
+    timer.checkpoint_hit()
+
     star_1_answer = find_first_invalid_number(data)
     print("Star 1: {}".format(star_1_answer))
+    timer.checkpoint_hit()
 
     star_2_answer = find_min_plus_max_of_contigous_set(data, star_1_answer)
     print("Star 2: {}".format(star_2_answer))
+    timer.checkpoint_hit()
+
+    timer.end_hit()
