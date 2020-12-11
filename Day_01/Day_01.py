@@ -1,3 +1,6 @@
+from aoc_tools.advent_timer import Advent_Timer
+
+
 def read_data(input_file="input.txt"):
     with open(input_file, 'r') as file:
         data = {int(line) for line in file}
@@ -36,10 +39,17 @@ def get_formatted_product(int_set):
 
 
 if __name__ == "__main__":
+    timer = Advent_Timer()
     data = read_data()
+    print("Input parsed!")
+    timer.checkpoint_hit()
 
     pair = find_set_with_sum(data, 2)
     print("Star 1: "+get_formatted_product(pair))
+    timer.checkpoint_hit()
 
     triplet = find_set_with_sum(data, 3)
     print("Star 2: "+get_formatted_product(triplet))
+    timer.checkpoint_hit()
+
+    timer.end_hit()
