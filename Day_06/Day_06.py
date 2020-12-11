@@ -1,3 +1,6 @@
+from aoc_tools.advent_timer import Advent_Timer
+
+
 def read_declarations(filename="input.txt"):
     with open(filename, "r") as input_file:
         groups = input_file.read().split("\n\n")
@@ -5,7 +8,10 @@ def read_declarations(filename="input.txt"):
 
 
 if __name__ == "__main__":
+    timer = Advent_Timer()
     answers = read_declarations()
+    print("Input parsed!")
+    timer.checkpoint_hit()
 
     star_1_answer = 0
     star_2_answer = 0
@@ -15,3 +21,6 @@ if __name__ == "__main__":
 
     print("Star 1: {}".format(star_1_answer))
     print("Star 2: {}".format(star_2_answer))
+    timer.checkpoint_hit()
+
+    timer.end_hit()
