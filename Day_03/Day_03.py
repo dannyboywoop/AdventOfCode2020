@@ -1,3 +1,6 @@
+from aoc_tools.advent_timer import Advent_Timer
+
+
 class Forest_Map:
     TREE_CHAR = '#'
 
@@ -34,12 +37,20 @@ def count_trees_in_trajectory(forest_map, x_vel, y_vel):
 
 
 if __name__ == "__main__":
+    timer = Advent_Timer()
     forest_map = read_map_from_file()
+    print("Input parsed!")
+    timer.checkpoint_hit()
+
     star_1_answer = count_trees_in_trajectory(forest_map, 3, 1)
     print("Star 1: {}".format(star_1_answer))
+    timer.checkpoint_hit()
 
     star_2_inputs = [(1, 1), (3, 1), (5, 1), (7, 1), (1, 2)]
     star_2_answer = 1
     for x_vel, y_vel in star_2_inputs:
         star_2_answer *= count_trees_in_trajectory(forest_map, x_vel, y_vel)
     print("Star 2: {}".format(star_2_answer))
+    timer.checkpoint_hit()
+
+    timer.end_hit()
