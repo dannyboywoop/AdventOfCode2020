@@ -1,3 +1,6 @@
+from aoc_tools.advent_timer import Advent_Timer
+
+
 class Password:
     def __init__(self, input_string):
         rule_string, letter_string, self.password = input_string.split(" ")
@@ -35,10 +38,17 @@ def count_valid_passwords_rule_2(passwords):
 
 
 if __name__ == "__main__":
+    timer = Advent_Timer()
     passwords = read_passwords_from_file()
+    print("Input parsed!")
+    timer.checkpoint_hit()
 
     valid_passwords_rule_1 = count_valid_passwords_rule_1(passwords)
     print("Star_01: {}".format(valid_passwords_rule_1))
+    timer.checkpoint_hit()
 
     valid_passwords_rule_2 = count_valid_passwords_rule_2(passwords)
     print("Star_02: {}".format(valid_passwords_rule_2))
+    timer.checkpoint_hit()
+
+    timer.end_hit()
