@@ -32,6 +32,25 @@ def populate_neighbours(seats, neighbour_eval_func):
             seats[neighbour_pos].neighbours += [position]
 
 
+def first_chair_in_eyesight(seats, position, direction):
+    pos = tuple(map(add, position, direction))
+
+    while 0 <= pos[0] and 0 <= pos[1]:
+        if pos in seats:
+            return [pos]
+        pos = tuple(map(add, pos, direction))
+    return []
+
+
+def eyesight_neighbours(seats, position):
+    neighbours = []
+
+    # check 3 directions above and the 1 directly left
+    for direction in [(-1, -1), (-1, 0), (-1, 1), (0, -1)]:
+        neighbours += first_chair_in_eyesight(seats, position, direction)
+    return neighbours
+
+
 def adjacent_neighbours(seats, position):
     adjacent_neighbours = []
 
@@ -80,3 +99,7 @@ if __name__ == "__main__":
     steady_state_1 = find_steady_state(seats, adjacent_neighbours, 4)
     star_1_answer = sum(seat.occupied for seat in steady_state_1.values())
     print("Star 1: {}".format(star_1_answer))
+
+    steady_state_2 = find_steady_state(seats, eyesight_neighbours, 5)
+    star_2_answer = sum(seat.occupied for seat in steady_state_2.values())
+    print("Star 2: {}".format(star_2_answer))
