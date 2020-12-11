@@ -1,5 +1,4 @@
 trib_001_cache = {1: 0, 2: 0, 3: 1}
-trib_012_cache = {1: 0, 2: 1, 3: 2}
 
 
 def read_adapters(filename="input.txt"):
@@ -36,9 +35,6 @@ def count_arrangements(adapters):
         diff = adapters[i] - adapters[i-1]
         if diff == 1:
             consequtive_1_jumps += 1
-        elif diff == 2:
-            count *= tribonacci_n(consequtive_1_jumps + 2, trib_012_cache)
-            consequtive_1_jumps = 0
         elif diff == 3:
             count *= tribonacci_n(consequtive_1_jumps + 3, trib_001_cache)
             consequtive_1_jumps = 0
