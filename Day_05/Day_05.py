@@ -1,3 +1,6 @@
+from aoc_tools.advent_timer import Advent_Timer
+
+
 class Boarding_Pass:
     def __init__(self, pass_string):
         self.row = Boarding_Pass._parse_row(pass_string)
@@ -41,9 +44,17 @@ def find_my_seat_id(passes):
 
 
 if __name__ == "__main__":
+    timer = Advent_Timer()
     passes = read_passes_from_file()
+    print("Input parsed!")
+    timer.checkpoint_hit()
+
     highest_seat_id = find_highest_seat_id(passes)
     print("Star 1: {}".format(highest_seat_id))
+    timer.checkpoint_hit()
 
     my_seat_id = find_my_seat_id(passes)
     print("Star 2: {}".format(my_seat_id))
+    timer.checkpoint_hit()
+
+    timer.end_hit()
