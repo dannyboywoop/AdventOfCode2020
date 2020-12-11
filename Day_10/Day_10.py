@@ -1,3 +1,6 @@
+from aoc_tools.advent_timer import Advent_Timer
+
+
 trib_001_cache = {1: 0, 2: 0, 3: 1}
 
 
@@ -42,13 +45,20 @@ def count_arrangements(adapters):
 
 
 if __name__ == "__main__":
+    timer = Advent_Timer()
     adapters = read_adapters()
     adapters.sort()
     adapters.insert(0, 0)
     adapters.append(adapters[-1] + 3)
+    print("Input parsed!")
+    timer.checkpoint_hit()
 
     star_1_answer = find_jolt_distribution(adapters)
     print("Star 1: {}".format(star_1_answer))
+    timer.checkpoint_hit()
 
     star_2_answer = count_arrangements(adapters)
     print("Star 2: {}".format(star_2_answer))
+    timer.checkpoint_hit()
+
+    timer.end_hit()
