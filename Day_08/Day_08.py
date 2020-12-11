@@ -1,3 +1,6 @@
+from aoc_tools.advent_timer import Advent_Timer
+
+
 def read_program(filename="input.txt"):
     with open(filename, "r") as input_file:
         code = [line.strip() for line in input_file]
@@ -51,9 +54,17 @@ def fix_infinite_loop(program, visited):
 
 
 if __name__ == "__main__":
+    timer = Advent_Timer()
     program = read_program()
+    print("Input parsed!")
+    timer.checkpoint_hit()
+
     _, _, star_1_answer, visited = run_program(program)
     print("Star 1: {}".format(star_1_answer))
+    timer.checkpoint_hit()
 
     star_2_answer = fix_infinite_loop(program, visited)
     print("Star 2: {}".format(star_2_answer))
+    timer.checkpoint_hit()
+
+    timer.end_hit()
