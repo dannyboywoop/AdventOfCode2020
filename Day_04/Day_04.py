@@ -1,3 +1,4 @@
+from aoc_tools.advent_timer import Advent_Timer
 from re import match
 
 
@@ -55,9 +56,17 @@ def count_valid_passports(passports):
 
 
 if __name__ == "__main__":
+    timer = Advent_Timer()
     passports = read_passports()
+    print("Input parsed!")
+    timer.checkpoint_hit()
+
     passports_with_all_fields = count_passports_with_all_fields(passports)
     print("Star 1: {}".format(passports_with_all_fields))
+    timer.checkpoint_hit()
 
     valid_passports = count_valid_passports(passports)
     print("Star 2: {}".format(valid_passports))
+    timer.checkpoint_hit()
+
+    timer.end_hit()
