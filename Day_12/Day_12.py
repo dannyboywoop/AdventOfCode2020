@@ -28,6 +28,23 @@ class Ship:
             self.pos += value * DIRECTIONS[action]
 
 
+class Waypoint_Ship:
+    def __init__(self):
+        self.pos = array([0, 0])
+        self.waypoint = array([10, 1])
+
+    def follow_instruction(self, instruction):
+        action, value = instruction
+        if action == "L":
+            self.waypoint = rotate_2d_vector(self.waypoint, value)
+        elif action == "R":
+            self.waypoint = rotate_2d_vector(self.waypoint, -value)
+        elif action == "F":
+            self.pos += value * self.waypoint
+        else:
+            self.waypoint += value * DIRECTIONS[action]
+
+
 def read_input(filename="input.txt"):
     with open(filename, "r") as file:
         instructions = [(line[0], int(line[1:])) for line in file]
@@ -58,6 +75,11 @@ if __name__ == "__main__":
     # star 1
     ship_1 = move_ship_along_path(Ship(), instructions)
     print("Star 1: {}".format(sum(absolute(ship_1.pos))))
+    timer.checkpoint_hit()
+
+    # star 2
+    ship_2 = move_ship_along_path(Waypoint_Ship(), instructions)
+    print("Star 2: {}".format(sum(absolute(ship_2.pos))))
     timer.checkpoint_hit()
 
     timer.end_hit()
