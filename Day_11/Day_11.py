@@ -4,8 +4,8 @@ from aoc_tools.advent_timer import Advent_Timer
 
 
 class Seat:
-    def __init__(self, position, occupied):
-        self.occupied = occupied
+    def __init__(self):
+        self.occupied = False
         self.neighbours = []
         self.adjacencies = 0
 
@@ -16,7 +16,7 @@ def parse_seats(seating_array):
         for j, val in enumerate(seating_array[i]):
             if val == ".":
                 continue
-            seats[(i, j)] = Seat((i, j), val == "#")
+            seats[(i, j)] = Seat()
     return seats
 
 
