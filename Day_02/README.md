@@ -1,6 +1,8 @@
 # Day 2: [Password Philosophy](https://adventofcode.com/2020/day/2)
 
-## Part 1
+## Problem Definition
+
+### Part 1
 
 Your flight departs in a few days from the coastal airport; the easiest way down to the coast from here is via toboggan.
 
@@ -24,7 +26,7 @@ In the above example, 2 passwords are valid. The middle password, `cdefg`, is no
 
 How many passwords are valid according to their policies?
 
-## Part Two
+### Part Two
 
 While it appears you validated the passwords correctly, they don't seem to be what the Official Toboggan Corporate Authentication System is expecting.
 
@@ -39,3 +41,28 @@ Given the same example list from above:
 * `2-9 c: ccccccccc` is invalid: both position `2` and position `9` contain `c`.
 
 How many passwords are valid according to the new interpretation of the policies?
+
+## Notes on my solution
+
+Today's problems were pretty straight forward.
+
+For part 1:
+
+```
+for each password:
+	count the number of occurrences of the specified character
+	return (count is in the appropriate range)
+```
+
+This has time complexity O(n). where n is the total number of characters across all the passwords.
+
+For part 2:
+
+```
+for each password:
+	check the specified indices for the specified character
+	return (exactly 1 index contained the specified character)
+```
+
+This has a time complexity of O(n), where n is the number of passwords.
+
