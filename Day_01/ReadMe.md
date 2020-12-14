@@ -1,6 +1,8 @@
 # Day 1: [Report Repair](https://adventofcode.com/2020/day/1)
 
-## Part One
+## Problem Definition
+
+### Part One
 
 After saving Christmas five years in a row, you've decided to take a vacation at a nice resort on a tropical island. Surely, Christmas will go on without you.
 
@@ -29,10 +31,35 @@ In this list, the two entries that sum to `2020` are `1721` and `299`. Multiplyi
 
 Of course, your expense report is much larger. Find the two entries that sum to `2020`; what do you get if you multiply them together?
 
-## Part Two
+### Part Two
 
 The Elves in accounting are thankful for your help; one of them even offers you a starfish coin they had left over from a past vacation. They offer you a second one if you can find three numbers in your expense report that meet the same criteria.
 
 Using the above example again, the three entries that sum to `2020` are `979`, `366`, and `675`. Multiplying them together produces the answer, `241861950`.
 
 In your expense report, what is the product of the three entries that sum to `2020`?
+
+## Notes on my solution
+
+The "brute force" solution to part 1 would be as follows:
+
+```pseudocode
+for i in range(dataset_size):
+	for j in range(i+1, dataset_size):
+		if (dataset[i]+dataset[j] == 2020):
+			return dataset[i]*dataset[j]
+```
+
+This has a time complexity of O(n^2), where n is the size of the dataset. Note for part 2, this would become O(n^3) as you would need to loop over i, j and k.
+
+To improve on this I stored the data in a hash set, this allows you to check for the existence of a number in the set in time O(1). I could then improve the time complexity of the solution to O(n) for part 1:
+
+```pseudocode
+while dataset is not empty:
+	value = dataset.pop()
+	complement = 2020-value
+	if complement is in dataset:
+		return value*complement
+```
+
+For part two I extended my solution to part 1, via recursion, to allow you to check for a set of m numbers that sum 2020. The time complexity for this is O(n<sup>m-1</sup>).
