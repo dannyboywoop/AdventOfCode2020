@@ -29,4 +29,9 @@ if __name__ == "__main__":
     print("Star 1: {}".format(star_1_answer))
     timer.checkpoint_hit()
 
+    # star 2
+    star_2_answer = play_game(30000000)
+    print("Star 2: {}".format(star_2_answer))
+    timer.checkpoint_hit()
+
     timer.end_hit()
