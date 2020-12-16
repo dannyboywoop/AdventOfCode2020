@@ -1,6 +1,7 @@
 from aoc_tools.advent_timer import Advent_Timer
 from re import compile
 from itertools import chain
+from copy import deepcopy
 
 
 RULE_REGEX = compile(r"^(\w+(?: \w+)?): (?:(\d+)-(\d+)) or (?:(\d+)-(\d+))$")
@@ -44,6 +45,47 @@ def star_1(rules, other_tickets):
     return scanning_error_rate, valid_tickets
 
 
+def get_allowed_positions(rules, valid_tickets):
+    allowed_positions = {field: set() for field in rules}
+    for field, allowed_range in rules.items():
+        for pos in range(len(my_ticket)):
+            pos_valid = True
+            for ticket in valid_tickets:
+                if ticket[pos] not in allowed_range:
+                    pos_valid = False
+                    break
+            if pos_valid:
+                allowed_positions[field].add(pos)
+    return allowed_positions
+
+
+def find_sole_bipartide_match(allowed_positions):
+    remaining = deepcopy(allowed_positions)
+    matches = {}
+    matched_edge = None
+    while len(matches) < len(allowed_positions):
+        for node, edges in remaining.items():
+            if len(edges) == 1:
+                matched_edge = edges.pop()
+                matches[node] = matched_edge
+                remaining.pop(node)
+                break
+        for edges in remaining.values():
+            edges.discard(matched_edge)
+    return matches
+
+
+def star_2(rules, valid_tickets, my_ticket):
+    allowed_positions = get_allowed_positions(rules, valid_tickets)
+    correct_positions = find_sole_bipartide_match(allowed_positions)
+    answer = 1
+    for field in rules:
+        if not field.startswith("departure"):
+            continue
+        answer *= my_ticket[correct_positions[field]]
+    return answer
+
+
 if __name__ == "__main__":
     timer = Advent_Timer()
 
@@ -55,6 +97,11 @@ if __name__ == "__main__":
     # star 1
     star_1_answer, valid_tickets = star_1(rules, other_tickets)
     print("Star 1: {}".format(star_1_answer))
+    timer.checkpoint_hit()
+
+    # star 2
+    star_2_answer = star_2(rules, valid_tickets, my_ticket)
+    print("Star 2: {}".format(star_2_answer))
     timer.checkpoint_hit()
 
     timer.end_hit()
