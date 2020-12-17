@@ -69,4 +69,10 @@ if __name__ == "__main__":
     print("Star 1: {}".format(star_1_answer))
     timer.checkpoint_hit()
 
+    # star 2
+    active_cubes = read_active_cubes(dimensions=4)
+    star_2_answer = perform_boot_process(active_cubes)
+    print("Star 2: {}".format(star_2_answer))
+    timer.checkpoint_hit()
+
     timer.end_hit()
