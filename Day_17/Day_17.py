@@ -6,8 +6,8 @@ class Pocket_Dimension:
     def __init__(self, cube_array, dimensions):
         self.dimensions = dimensions
         self.active_cubes = {}
-        self.neighbour_deltas = [deltas for deltas in 
-                                 product([-1, 0, 1], repeat=self.dimensions) 
+        self.neighbour_deltas = [deltas for deltas in
+                                 product([-1, 0, 1], repeat=self.dimensions)
                                  if any(deltas)]
         self._initialise_active_cubes(cube_array)
 
@@ -22,7 +22,7 @@ class Pocket_Dimension:
     def _add_active_cube(self, position):
         self.active_cubes[position] = self._get_neighbours(position)
 
-    def _get_neighbours(self, position):        
+    def _get_neighbours(self, position):
         neighbours = set()
         for deltas in self.neighbour_deltas:
             neighbour_pos = tuple(map(sum, zip(position, deltas)))
@@ -30,7 +30,7 @@ class Pocket_Dimension:
         return neighbours
 
     def _count_active_neighbours(self):
-        active_neighbour_count = {active_cube: 0 
+        active_neighbour_count = {active_cube: 0
                                   for active_cube in self.active_cubes}
         for neighbours in self.active_cubes.values():
             for neighbour in neighbours:
@@ -39,7 +39,7 @@ class Pocket_Dimension:
                 else:
                     active_neighbour_count[neighbour] = 1
         return active_neighbour_count
-    
+
     def _update_active_cubes(self):
         active_neighbour_count = self._count_active_neighbours()
         for pos, count in active_neighbour_count.items():
@@ -63,7 +63,7 @@ def read_cube_array(filename="input.txt"):
 
 if __name__ == "__main__":
     timer = Advent_Timer()
-    
+
     # parse input
     cube_array = read_cube_array()
     print("Input parsed!")
