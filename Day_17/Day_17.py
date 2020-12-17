@@ -30,19 +30,19 @@ class Pocket_Dimension:
         return neighbours
 
     def _count_active_neighbours(self):
-        active_neighbour_count = {active_cube: 0
-                                  for active_cube in self.active_cubes}
+        active_neighbour_counts = {active_cube: 0
+                                   for active_cube in self.active_cubes}
         for neighbours in self.active_cubes.values():
             for neighbour in neighbours:
-                if neighbour in active_neighbour_count:
-                    active_neighbour_count[neighbour] += 1
+                if neighbour in active_neighbour_counts:
+                    active_neighbour_counts[neighbour] += 1
                 else:
-                    active_neighbour_count[neighbour] = 1
-        return active_neighbour_count
+                    active_neighbour_counts[neighbour] = 1
+        return active_neighbour_counts
 
     def _update_active_cubes(self):
-        active_neighbour_count = self._count_active_neighbours()
-        for pos, count in active_neighbour_count.items():
+        active_neighbour_counts = self._count_active_neighbours()
+        for pos, count in active_neighbour_counts.items():
             if pos in self.active_cubes:
                 if not (count == 2 or count == 3):
                     self.active_cubes.pop(pos)
