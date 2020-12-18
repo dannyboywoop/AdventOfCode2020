@@ -18,6 +18,23 @@ def no_precedence_evaluate(simple_expression):
     return result
 
 
+def plus_precedent_evaluate(simple_expression):
+    terms = simple_expression.strip("()").split(" ")
+
+    # preform additions
+    addition_indices = [i for i in range(len(terms)) if terms[i] == "+"]
+    for index in reversed(addition_indices):
+        value = int(terms.pop(index+1))
+        terms.pop(index)
+        terms[index-1] = int(terms[index-1]) + value
+
+    # multiply all remaining terms
+    result = 1
+    for value in terms[::2]:
+        result *= int(value)
+    return result
+
+
 def evaluate_expression(expression, base_evaluate_func):
     open_bracket_indices = []
     index = 0
@@ -51,6 +68,11 @@ if __name__ == "__main__":
     # star 1
     star_1_answer = sum_expressions(expressions, no_precedence_evaluate)
     print("Star 1: {}".format(star_1_answer))
+    timer.checkpoint_hit()
+
+    # star 2
+    star_2_answer = sum_expressions(expressions, plus_precedent_evaluate)
+    print("Star 2: {}".format(star_2_answer))
     timer.checkpoint_hit()
 
     timer.end_hit()
