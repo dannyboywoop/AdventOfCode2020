@@ -1,4 +1,4 @@
-from aoc_tools.advent_timer import Advent_Timer
+from aoc_tools import Advent_Timer
 
 
 def play_game(turn_count, starting_numbers=[1, 0, 18, 10, 19, 6]):

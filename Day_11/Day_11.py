@@ -1,6 +1,6 @@
 from operator import add
 from copy import deepcopy
-from aoc_tools.advent_timer import Advent_Timer
+from aoc_tools import Advent_Timer
 
 
 class Seat:

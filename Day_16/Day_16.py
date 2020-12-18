@@ -1,4 +1,4 @@
-from aoc_tools.advent_timer import Advent_Timer
+from aoc_tools import Advent_Timer
 from re import compile
 from itertools import chain
 from copy import deepcopy

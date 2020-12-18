@@ -1,4 +1,4 @@
-from aoc_tools.advent_timer import Advent_Timer
+from aoc_tools import Advent_Timer
 
 
 trib_001_cache = {1: 0, 2: 0, 3: 1}

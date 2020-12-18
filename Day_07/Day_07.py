@@ -1,5 +1,5 @@
 from re import match, finditer
-from aoc_tools.advent_timer import Advent_Timer
+from aoc_tools import Advent_Timer
 
 
 can_contain_colour_cache = {}
