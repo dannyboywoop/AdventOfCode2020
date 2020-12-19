@@ -1,5 +1,5 @@
 from aoc_tools import Advent_Timer
-from regex import match, compile
+from regex import fullmatch, compile
 
 
 REGEX_CACHE = {}
@@ -50,8 +50,8 @@ def read_input(filename="input.txt"):
 
 
 def count_matching_messages(rules, messages, rule="0"):
-    regex = compile(r"^{}$".format(get_regex(rules, rule)))
-    return sum([bool(match(regex, message)) for message in messages])
+    regex = compile(get_regex(rules, rule))
+    return sum([bool(fullmatch(regex, message)) for message in messages])
 
 
 if __name__ == "__main__":
