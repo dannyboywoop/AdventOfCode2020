@@ -5,12 +5,6 @@ from regex import fullmatch, compile
 REGEX_CACHE = {}
 
 
-def parse_rules(rules_str):
-    rule_strings = [rule.split(":") for rule in rules_str.split("\n")]
-    rules = {key: val.strip() for key, val in rule_strings}
-    return rules
-
-
 def get_regex(rules, rule):
     if rule in REGEX_CACHE:
         return REGEX_CACHE[rule]
@@ -43,9 +37,9 @@ def get_regex(rules, rule):
 
 def read_input(filename="input.txt"):
     with open(filename, "r") as file:
-        rules_str, messages_str = file.read().strip().split("\n\n")
-    rules = parse_rules(rules_str)
-    messages = messages_str.split()
+        rules, messages = file.read().strip().split("\n\n")
+    rules = dict([rule.split(": ") for rule in rules.split("\n")])
+    messages = messages.split()
     return rules, messages
 
 
