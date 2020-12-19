@@ -1,5 +1,5 @@
 from aoc_tools import Advent_Timer
-from re import match, compile
+from regex import match, compile
 
 
 REGEX_CACHE = {}
@@ -20,9 +20,23 @@ def get_regex(rules, rule):
         REGEX_CACHE[rule] = regex
         return regex
 
-    sub_parts = [part if part in ["|", rule] else get_regex(rules, part)
-                 for part in rules[rule].split()]
-    regex = "(?:{})".format("".join(sub_parts))
+    parts = rules[rule].split()
+    parsed_parts = []
+    recursive = False
+    for part in parts:
+        if part == "|":
+            parsed_parts.append("|")
+        elif part == rule:
+            parsed_parts.append("(?P>r{})*".format(rule))
+            recursive = True
+        else:
+            parsed_parts.append(get_regex(rules, part))
+
+    regex = "".join(parsed_parts)
+    if recursive:
+        regex = "(?P<r{}>{})".format(rule, regex)
+    else:
+        regex = "(?:{})".format(regex)
     REGEX_CACHE[rule] = regex
     return regex
 
@@ -51,6 +65,14 @@ if __name__ == "__main__":
     # star 1
     star_1_answer = count_matching_messages(rules, messages)
     print("Star 1: {}".format(star_1_answer))
+    timer.checkpoint_hit()
+
+    # star 2
+    rules["8"] = "42 8"
+    rules["11"] = "42 31 | 42 11 31"
+    REGEX_CACHE.clear()
+    star_2_answer = count_matching_messages(rules, messages)
+    print("Star 2: {}".format(star_2_answer))
     timer.checkpoint_hit()
 
     timer.end_hit()
