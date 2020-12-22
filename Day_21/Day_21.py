@@ -46,7 +46,29 @@ def star_1(foods):
         for ingredients, _ in foods:
             if safe_ingredient in ingredients:
                 count += 1
-    return count
+    return count, risky_ingredients
+
+
+def find_sole_bipartide_match(potential_dangers):
+    remaining = deepcopy(potential_dangers)
+    matches = {}
+    matched_edge = None
+    while len(matches) < len(potential_dangers):
+        for node, edges in remaining.items():
+            if len(edges) == 1:
+                matched_edge = edges.pop()
+                matches[node] = matched_edge
+                remaining.pop(node)
+                break
+        for edges in remaining.values():
+            edges.discard(matched_edge)
+    return matches
+
+
+def star_2(foods, potential_dangers):
+    dangers = list(find_sole_bipartide_match(potential_dangers).items())
+    sorted_dangers = sorted(dangers, key=lambda s: s[0])
+    return ",".join(ingredient for _, ingredient in sorted_dangers)
 
 
 if __name__ == "__main__":
@@ -56,9 +78,12 @@ if __name__ == "__main__":
     print("Input parsed!")
     timer.checkpoint_hit()
 
-    star_1_answer = star_1(foods)
+    star_1_answer, potential_dangers = star_1(foods)
     print("Star 1: {}".format(star_1_answer))
     timer.checkpoint_hit()
+
+    star_2_answer = star_2(foods, potential_dangers)
+    print("Star 2: {}".format(star_2_answer))
     timer.checkpoint_hit()
 
     timer.end_hit()
