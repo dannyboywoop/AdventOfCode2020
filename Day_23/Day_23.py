@@ -73,6 +73,11 @@ class Cup_Game:
             cup = next_cup
         return answer
 
+    def get_next_2_cups(self, cup):
+        next_cup_1 = self.cups.get_next(cup)
+        next_cup_2 = self.cups.get_next(next_cup_1)
+        return next_cup_1, next_cup_2
+
 
 def star_1(start_order):
     cups = [int(char) for char in start_order]
@@ -81,11 +86,24 @@ def star_1(start_order):
     return game.get_labels_after_1()
 
 
+def star_2(start_order):
+    cups = [int(char) for char in start_order]
+    cups += [x for x in range(max(cups) + 1, 1000001)]
+    game = Cup_Game(cups)
+    game.play_turns(10000000)
+    next_cup_1, next_cup_2 = game.get_next_2_cups(1)
+    return next_cup_1 * next_cup_2
+
+
 if __name__ == "__main__":
     timer = Advent_Timer()
 
     star_1_answer = star_1(INPUT)
     print("Star 1: {}".format(star_1_answer))
+    timer.checkpoint_hit()
+
+    star_2_answer = star_2(INPUT)
+    print("Star 2: {}".format(star_2_answer))
     timer.checkpoint_hit()
 
     timer.end_hit()
