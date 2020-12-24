@@ -26,14 +26,18 @@ def find_first_invalid_number(data):
 
 
 def find_min_plus_max_of_contigous_set(data, val):
-    for i in range(len(data)):
-        total = 0
-        for j in range(i, len(data)):
-            total += data[j]
-            if total == val:
-                return min(data[i:j+1]) + max(data[i:j+1])
-            if total > val:
-                break
+    start = 0
+    end = 2
+    total = sum(data[start:end])
+    while end <= len(data) and start <= len(data) - 2:
+        if total > val:
+            total -= data[start]
+            start += 1
+        elif total < val:
+            total += data[end]
+            end += 1
+        elif total == val:
+            return min(data[start:end]) + max(data[start:end])
 
 
 if __name__ == "__main__":
