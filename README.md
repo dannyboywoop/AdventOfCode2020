@@ -10,8 +10,8 @@ Some python solutions will import modules from my aoc_tools package, you will ne
 
 ## My Solutions
 
-| Problem                                                      | Keywords                                       | Brute-force time complexity                              | My time complexity                            | Part 1 time | Part 2 time | Total time |
-| ------------------------------------------------------------ | ---------------------------------------------- | :------------------------------------------------------- | --------------------------------------------- | ----------- | ----------- | ---------- |
+| Problem                                                      | Keywords                                       | Brute-force time complexity                              | My time complexity&nbsp;                | Part 1 time | Part 2 time | Total time |
+| :----------------------------------------------------------- | :--------------------------------------------- | :------------------------------------------------------- | :-------------------------------------------- | :---------- | :---------- | :--------- |
 | [Day_01](https://github.com/dannyboywoop/AdventOfCode2020/tree/main/Day_01) | Recursion, HashSets.                           | Part 1 - O(n<sup>2</sup>)<br />Part 2 - O(n<sup>m</sup>) | Part 1 - O(n)<br />Part2 - O(m<sup>m-1</sup>) | TBC         | TBC         | TBC        |
 | [Day_02](https://github.com/dannyboywoop/AdventOfCode2020/tree/main/Day_02) | String parsing.                                | Part 1 - O(n)<br />Part 2 - O(n)                         | Part 1 - O(n)<br />Part 2 - O(n)              | TBC         | TBC         | TBC        |
 | [Day_03](https://github.com/dannyboywoop/AdventOfCode2020/tree/main/Day_03) | Arrays.                                        | Part 1 - O(n)<br />Part 2 - O(n*m)                       | Part 1 - O(n)<br />Part 2 - O(n*m)            | TBC         | TBC         | TBC        |
