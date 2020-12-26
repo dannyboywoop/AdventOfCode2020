@@ -5,7 +5,7 @@ from copy import deepcopy
 
 def parse_hand(hand_string):
     start_pos = hand_string.find(":")
-    hand = list(map(int, findall("\d+", hand_string[start_pos:])))
+    hand = list(map(int, findall(r"\d+", hand_string[start_pos:])))
     return hand
 
 
