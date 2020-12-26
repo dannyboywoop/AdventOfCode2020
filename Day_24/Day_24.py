@@ -63,7 +63,7 @@ def read_data(filename="input.txt"):
     return instructions_list
 
 
-def follow_instructions(instructions, start_pos = (0, 0)):
+def follow_instructions(instructions, start_pos=(0, 0)):
     x, y = start_pos
     for instruction in instructions:
         delta_x, delta_y = DIRECTIONS[instruction]
